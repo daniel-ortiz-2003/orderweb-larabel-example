@@ -12,9 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('type_activity', function (Blueprint $table) {
-        $table->id();
-        $table->string('descrption',100)->comment('descripcion');   
-        $table->timestamps();
+            $table->id();
+            $table->string('description',100)->comment('descripcion');   
+            $table->timestamps();
         });
     }
 
