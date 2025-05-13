@@ -1,0 +1,33 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+use function Laravel\Prompts\table;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        Schema::create('technician', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('document')->uunique()->comment('cedula');
+            $table->string('name',80)->comment('nombre');
+            $table->string('specialty',50)->nullable()->comment('especialidad');
+            $table->string('phone', 30)->nullable()->comment('telefono');
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::dropIfExists('technician');
+    }
+};
