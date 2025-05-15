@@ -16,4 +16,17 @@ class Activity extends Model
         'tchenician_id',
         'type_activity_id'
     ];
+    public function technician()
+    {
+        return $this->belongsTo(Technician::class, 'technician_id');
+    }
+    public function type_activity()
+    {
+        return $this->belongsTo(TypeActivity::class, 'type_activity_id');
+    }
+    public function orders()
+    {
+        return $this->belongsToMany(Order::class);
+        /** return $this->belongsToMany(Order::class, 'order_activity', 'activity_id', 'order_id'); */
+    }
 }

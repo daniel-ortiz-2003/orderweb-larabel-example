@@ -7,12 +7,12 @@ define('LARAVEL_START', microtime(true));
 
 /*
 |--------------------------------------------------------------------------
-| Check If The Application Is Under Maintenance
+| Verificar si la aplicación está en mantenimiento
 |--------------------------------------------------------------------------
 |
-| If the application is in maintenance / demo mode via the "down" command
-| we will load this file so that any pre-rendered content can be shown
-| instead of starting the framework, which could cause an exception.
+| Si la aplicación está en modo mantenimiento / demo mediante el comando "down"
+| cargaremos este archivo para que se muestre cualquier contenido pre-renderizado
+| en lugar de iniciar el framework, lo que podría causar una excepción.
 |
 */
 
@@ -22,12 +22,12 @@ if (file_exists($maintenance = __DIR__.'/../storage/framework/maintenance.php'))
 
 /*
 |--------------------------------------------------------------------------
-| Register The Auto Loader
+| Registrar el Auto Loader
 |--------------------------------------------------------------------------
 |
-| Composer provides a convenient, automatically generated class loader for
-| this application. We just need to utilize it! We'll simply require it
-| into the script here so we don't need to manually load our classes.
+| Composer proporciona un cargador de clases conveniente y generado automáticamente
+| para esta aplicación. Solo necesitamos utilizarlo aquí. Simplemente lo requerimos
+| en este script para no tener que cargar manualmente nuestras clases.
 |
 */
 
@@ -35,12 +35,12 @@ require __DIR__.'/../vendor/autoload.php';
 
 /*
 |--------------------------------------------------------------------------
-| Run The Application
+| Ejecutar la Aplicación
 |--------------------------------------------------------------------------
 |
-| Once we have the application, we can handle the incoming request using
-| the application's HTTP kernel. Then, we will send the response back
-| to this client's browser, allowing them to enjoy our application.
+| Una vez que tenemos la aplicación, podemos manejar la solicitud entrante usando
+| el kernel HTTP de la aplicación. Luego, enviaremos la respuesta de vuelta
+| al navegador del cliente, permitiéndole disfrutar de nuestra aplicación.
 |
 */
 
