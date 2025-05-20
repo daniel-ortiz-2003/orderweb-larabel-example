@@ -14,7 +14,7 @@ return new class extends Migration
 
         Schema::create('causal', function (Blueprint $table) {
         $table->id();
-        $table->string('descrption',100)->comment('descripcion');   
+        $table->string('description',100)->comment('descripcion');   
         $table->timestamps();
         });
     }

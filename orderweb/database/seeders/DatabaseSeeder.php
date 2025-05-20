@@ -40,7 +40,7 @@ class DatabaseSeeder extends Seeder
 
         $this-> call(ActivitySeeder::class);
         //seeder de pruea
-        //$this-> call(TestTechnicianSeeder::class);
+        $this-> call(TestTechnicianSeeder::class);
         $this-> call(TestActivitySeeder::class);
     }
 }
