@@ -28,10 +28,10 @@ Route::get('/test2', function () {
 Route::prefix('causal')->group(function(){
     Route::get('/index', [CausalController::class, 'index'])->name('causal.index');
     Route::get('/create', [CausalController::class, 'create'])->name('causal.create');
-    Route::get('/edit/{id]', [CausalController::class, 'edit'])->name('causal.edit');
+    Route::get('/edit/{id}', [CausalController::class, 'edit'])->name('causal.edit');
     Route::post('/store', [CausalController::class, 'store'])->name('causal.store');
-    Route::put('/update/{id]', [CausalController::class, 'update'])->name('causal.update');
-    Route::get('/destroy/{id]', [CausalController::class, 'destroy'])->name('causal.destroy');
+    Route::put('/update/{id}', [CausalController::class, 'update'])->name('causal.update');
+    Route::get('/destroy/{id}', [CausalController::class, 'destroy'])->name('causal.destroy');
 });
 
 // Rutas para Observaciones

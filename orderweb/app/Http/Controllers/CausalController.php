@@ -56,8 +56,8 @@ class CausalController extends Controller
         else
         {
            session()->flash('warning', ' no se encuentra el registro solicitado'); 
-           return redirect()->route('causal.index');
         }
+        return redirect()->route('causal.index');
     }
 
     /**
@@ -69,12 +69,13 @@ class CausalController extends Controller
         if($causal) // la causal existe
         {
             $causal->update($request->all());
-            return view('causal.edit', compact('causal'));
+            session()->flash('message', 'Registro actualizado correctamente');
+            return redirect()->route('causal.index');
         }
         else
         {
-           session()->flash('warning', ' no se encuentra el registro solicitado'); 
-           return redirect()->route('causal.index');
+           session()->flash('warning', ' no se encuentra el registro solicitado');    
+           return redirect()->route('causal.index');        
         }
     }
 
@@ -88,7 +89,6 @@ class CausalController extends Controller
         {
             $causal->delete();
             session()->flash('message', 'Registro eliminado correctamente'); 
-
         }
         else
         {
