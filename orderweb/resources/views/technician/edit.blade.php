@@ -5,7 +5,7 @@
 
     <div class="row">
         <div class="col-lg-12 mb-4">
-            <form action="" method="POST">
+            <form action="{{ route('technician.update', $technician['id']) }}" method="POST">
             @csrf
             <div class="row form-group">
                 <div class="col-lg-12 mb-4">
@@ -18,9 +18,13 @@
                 </div>
                 <div class="col-lg-12 mb-4">
                     <label for="speciality">Especialidad</label>
-                    <select name="speciality" id="speciality" class="form-control">
-                        <option value="">Seleccione</option>
-                    </select>
+                    <input list="specialities-list" class="form-control" name="speciality" id="specility">
+                    <datalist id="specialities-list">
+                        <option>Instalación de redes</option>
+                        <option >Construcción</option>
+                        <option>Lectura de redes</option>
+                        <option>Plomero</option>
+                    </datalist>
                 </div>
                 <div class="col-lg-12 mb-4">
                     <label for="phone">Telefono</label>
@@ -37,7 +41,7 @@
                      <a href="{{ route('technician.index') }}" class="btn btn-secondary btn-block">Cancelar</a>
                 </div>
             </div>
-            </form>c
+            </form>
         </div>
     </div 
 

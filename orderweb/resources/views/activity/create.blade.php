@@ -22,12 +22,22 @@
                         <label for="technician_id">Tecnico</label>
                         <select name="technician_id" id="technician_id" class="form-control">
                             <option value="">Seleccione</option>
+                            @foreach ($technicians as $technicians)
+                                <option value="{{ $technicians['id'] }}">
+                                    {{ $technicians['name'] }}
+                                </option>
+                            @endforeach
                         </select>
                     </div>
                     <div class="col-ig-6 mb-4">
                         <label for="type_activity_id">Tipo</label>
                         <select name="type_activity_id" id="type_activity_id" class="form-control">
                             <option value="">Seleccione</option>
+                            @foreach ($types as $type)
+                                <option value="{{ $type['id'] }}">
+                                    {{ $type['description'] }}
+                                </option>
+                            @endforeach
                         </select>
                     </div>
                 </div>

@@ -75,8 +75,9 @@ class CausalController extends Controller
         else
         {
            session()->flash('warning', ' no se encuentra el registro solicitado');    
-           return redirect()->route('causal.index');        
+                 
         }
+        return redirect()->route('causal.index');  
     }
 
     /**

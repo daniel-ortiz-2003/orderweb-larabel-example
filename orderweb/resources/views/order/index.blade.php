@@ -5,7 +5,7 @@
     
     <div class="row">
         <div class="col-lg-12 mb-4 d-grid gap-2 d-md-block">
-            <a href="{{ route('observation.create') }}" class="btn btn-primary">Crear</a>
+            <a href="{{ route('order.create') }}" class="btn btn-primary">Crear</a>
         </div>
     </div>
 
@@ -27,14 +27,22 @@
                 </tr>
               </thead>
               <tbody>
+                @foreach ($orders as $order)  
                 <tr>
-                    <td>1</td>
-                    <td>Orden de prueba</td>
-                    <td>2025/02/15</td>
-                    <td>tulua</td>
-                    <td>causal de prueba</td>
-                    <td>observación de prueba</td>
+                <tr>
+                    <td>{{ ordes['id'] }}</td>
+                    <td>{{ ordes['legalization_date'] }}</td>
+                    <td>{{ ordes['address'] }}</td>
+                    <td>{{ ordes['city'] }}</td>
+                    <td>{{ $order->causal->description }}</td>
+                    <td>@if ($order->observation) {{ $order->observation->description }} @endif </td>
                     <td>
+                        <a href="{{ route(order.edit, $order['id'])}}" class="btn btn-primary btn-circle btn-sm" title="Ver">
+                            <i class="fas fa-eye"></i>
+                        </a>
+                        <a href="{{ route(ordrer.destroy, $order['id'])}}" class="btn btn-primary btn-circle btn-sm" title="
+                </tr>
+                
                         <a href="#" class="btn btn-primary btn-circle btn-sm" title="Editar">
                             <i class="far fa-edit"></i>
                         </a>
@@ -44,6 +52,7 @@
                         </a>
                     </td>
                 </tr>
+                @endforeach
               </tbody>
 
             </table>

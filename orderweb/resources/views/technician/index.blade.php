@@ -1,11 +1,11 @@
 @extends('templates.base')
-@section('title', 'observaciones')
-@section('header', 'observaciones')
+@section('title', 'tecnico')
+@section('header', 'tecnico')
 @section('content')
     
     <div class="row">
         <div class="col-lg-12 mb-4 d-grid gap-2 d-md-block">
-            <a href="{{ route('observation.create') }}" class="btn btn-primary">Crear</a>
+            <a href="{{ route('technician.create') }}" class="btn btn-primary">Crear</a>
         </div>
     </div>
 
@@ -26,13 +26,13 @@
                 </tr>
               </thead>
               <tbody>
+                @foreach ( $technicians as $technician)
                 <tr>
-                    <td>1</td>
-                    <td>TECNICO DE PRUEBA de prueba</td>
-                    <td>10032092930</td>
-                    <td>Daniel</td>
-                    <td>especialidad de prueba</td>
-                    <td>4235657627</td>
+                    <td>{{ $technician["id"] }}</td>
+                    <td>{{ $technician["document"] }}</td>
+                    <td>{{ $technician["name"] }}</td>
+                    <td>{{ $technician["speciality"] }}</td>
+                    <td>{{ $technician["phone"] }}</td>
                     <td>
                         <a href="#" class="btn btn-primary btn-circle btn-sm" title="Editar">
                             <i class="far fa-edit"></i>
@@ -43,6 +43,7 @@
                         </a>
                     </td>
                 </tr>
+                @endforeach
               </tbody>
 
             </table>
