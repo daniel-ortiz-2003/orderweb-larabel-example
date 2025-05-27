@@ -2,6 +2,7 @@
 @section('title', 'Editar órdenes')
 @section('header', 'Editar órdenes')
 @section('content')
+@include('templates/messages')
     <div class="row">
         <div class="col-lg-12 mb-4">
             <form action="{{ route('order.update', $order) }}" method="POST">
@@ -77,9 +78,79 @@
                             <div class="row form-group">
                                 <div class="col-lg-6">
                                     <label for="table_data">Actividades disponibles</label>
+                                    <table id="table_data" class="table table-striped table-hover"> 
+                                        <thead>
+                                                <th>Id</th>
+                                                <th>Descripción</th>
+                                                <th>Horas</th>
+                                                <th>Agregar</th>
+                                        </thead>
+                                        <tbody>
+                                            @if(count($availableActivities)== 0)
+                                                <tr>
+                                                    <td colspan="4">
+                                                No existen actividades disponibles
+                                                    </td>
+                                                </tr>
+                                            @else
+                                                @foreach ($avaliblesActivities as $activity )
+                                                    <td>{{ $activity->id }}</td>
+                                                    <td>{{ $activity->description }}</td>
+                                                    <td>{{ $activity->hours }}</td>
+                                                    <td>
+                                                        <a href="{{ route('order.add_activity', [$order['id'], $activity->id]) }}" class="btn-success btn-circle bt-sm" title="Agregar">
+                                                            <i class="fas fa-fw fa-plus"></i>
+                                                        </a>
+                                                    </tr>
+                                                @endforeach
+                                                <tr>
+                                                    <td>1</td>
+                                                    <td>prueba</td>
+                                                    <td>8</td>
+                                                    <td>x</td>
+                                                </tr>
+                                            @endif
+                                        </tbody>
+                                        </thead>
+                                    </table>
                                 </div>
                                 <div class="col-lg-6">
                                     <label for="table_data">Actividades agregadas</label>
+                                    <table id="table_data" class="table table-striped table-hover"> 
+                                        <thead>
+                                                <th>Id</th>
+                                                <th>Descripción</th>
+                                                <th>Horas</th>
+                                                <th>Retirar</th>
+                                        </thead>
+                                        <tbody>
+                                            @if(count($addActivities)== 0)
+                                                <tr>
+                                                    <td colspan="4">
+                                                No existen actividades disponibles
+                                                    </td>
+                                                </tr>
+                                            @else
+                                                @foreach ($addActivities as $activity )
+                                                    <td>{{ $activity->id }}</td>
+                                                    <td>{{ $activity->description }}</td>
+                                                    <td>{{ $activity->hours }}</td>
+                                                    <td>
+                                                        <a href="{{ route('order.remove_activity', [$order['id'], $activity->id]) }}" class="btn btn-danger btn-circle bt-sm" title="Agregar">
+                                                            <i class="fas fa-fw fa-minus"></i>
+                                                        </a>
+                                                    </dr>
+                                                @endforeach
+                                                <tr>
+                                                    <td>1</td>
+                                                    <td>prueba</td>
+                                                    <td>8</td>
+                                                    <td>x</td>
+                                                </tr>
+                                            @endif
+                                        </tbody>
+                                        </thead>
+                                    </table>
                                 </div>
                             </div>
                         </div>

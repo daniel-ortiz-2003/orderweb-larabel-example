@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Activity;
 use App\Models\Causal;
 use App\Models\Observation;
 use App\Models\Order;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Collection; 
 
 class OrderController extends Controller
 {
@@ -62,7 +65,19 @@ class OrderController extends Controller
                 ['name' => 'BUGA', 'value' => 'BUGA'],
                 ['name' => 'PALMIRA', 'value' => 'PALMIRA']
             ];
-            return view('order.edit', compact('order', 'causals', 'observations', 'cities'));
+
+            //consultar actividades disponibles
+            $query = DB::select("SELECT * FROM activity WHERE activity.id NOT IN (
+	                                SELECT order_activity.activity_id FROM order_activity
+	                                WHERE order_activity.order_id = ?)",[$id]);
+            $availableActivities = collection::make($query);
+
+            //consultar actividade agregadas a la orden
+            $addActivities = $order->activities;
+
+
+            return view('order.edit', compact('order', 'causals', 'observations', 'cities',
+                'availableActivities', 'addActivities'));
         }
         else
         {
@@ -108,4 +123,43 @@ class OrderController extends Controller
 
         return redirect()->route('order.index');
     }
+    public function add_activity(string $order_id, string $activity_id)
+    {
+        $order = Order::find($order_id);
+        if($order) 
+        {
+            session()->flash('error', 'No se encuentra la orden');
+            return redirect()->route('order.edit', $order_id)->withInput();
+
+        }
+        $activity = Activity::find($order_id);
+        if($activity) 
+        {
+            session()->flash('error', 'No se encuentra la actividad');
+            return redirect()->route('order.edit', $order_id)->withInput();
+
+        }$order->activities()->attach($activity_id);
+        session()->flash('message', 'Actividad agregada exitosamente');
+        return redirect()->route('order.edit', $order_id);
+    }
+    public function remove_activity(string $order_id, string $activity_id)
+    {
+        $order = Order::find($order_id);
+        if($order) 
+        {
+            session()->flash('error', 'No se encuentra la orden');
+            return redirect()->route('order.edit', $order_id)->withInput();
+
+        }
+        $activity = Activity::find($order_id);
+        if($activity) 
+        {
+            session()->flash('error', 'No se encuentra la actividad');
+            return redirect()->route('order.edit', $order_id)->withInput();
+
+        }$order->activities()->detach($activity_id);
+        session()->flash('message', 'Actividad eliminada exitosamente');
+        return redirect()->route('order.edit', $order_id);
+    }
+        
 }
