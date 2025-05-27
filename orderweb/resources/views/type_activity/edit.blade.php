@@ -2,6 +2,7 @@
 @section('title', 'Editar tipo de actividad')
 @section('header', 'Editar tipo de actividad')
 @section('content')
+@include('templates.messages')
     <div class="row">
         <div class="col-lg-12 mb-4">
             <form action="{{ route('type_activity.update', $type['id']) }}" method="POST">
@@ -10,7 +11,8 @@
                 <div class="row form-group">
                     <div class="col-lg-12 mb-4">
                         <label for="description">Descripción</label>
-                        <input type="text" class="form-control" id="description" required>
+                        <input type="text" class="form-control" id="description" name="description" required 
+                        value="{{ $observation['description'] }}">
                     </div>
                 </div>
                 <div class="row">

@@ -73,11 +73,11 @@ class OrderController extends Controller
             $availableActivities = collection::make($query);
 
             //consultar actividade agregadas a la orden
-            $addActivities = $order->activities;
+            $addedActivities = $order->activities;
 
 
             return view('order.edit', compact('order', 'causals', 'observations', 'cities',
-                'availableActivities', 'addActivities'));
+                'availableActivities', 'addedActivities'));
         }
         else
         {
