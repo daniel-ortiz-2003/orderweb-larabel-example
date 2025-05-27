@@ -25,7 +25,7 @@ class OrderController extends Controller
     {
         $causals = Causal::all();
         $observations = Observation::all();
-        return view('order.create', compact('causals', 'observations'));
+        return view('order.create', compact('causals', 'observations')); 
     }
 
     /**
@@ -34,7 +34,7 @@ class OrderController extends Controller
     public function store(Request $request)
     {
         $order = Order::create($request->all());
-        session()->flash('message', 'Registro creado exitosamente!');
+        session()->flash('message', 'Registro creado exitosamente');
         return redirect()->route('order.index');
     }
 
@@ -52,23 +52,23 @@ class OrderController extends Controller
     public function edit(string $id)
     {
         $order = Order::find($id);
-        if($order) // la causal existe
+        if($order) 
         {
             $causals = Causal::all();
             $observations = Observation::all();
-            $cities = [
+            $cities =[
                 ['name' => 'TULUA', 'value' => 'TULUA'],
-                [ 'name' => 'CALI', 'value' => 'CALI'],
-                [ 'name' => 'BUGA', 'value' => 'BUGA'],
-                [ 'name' => 'PALMIRA', 'value' => 'PALMIRA']
+                ['name' => 'CALI', 'value' => 'CALI'],
+                ['name' => 'BUGA', 'value' => 'BUGA'],
+                ['name' => 'PALMIRA', 'value' => 'PALMIRA']
             ];
-            return view('order.edit', compact('order', 'causals', 'observations'));
+            return view('order.edit', compact('order', 'causals', 'observations', 'cities'));
         }
         else
         {
-           session()->flash('warning', ' no se encuentra la orden solicitado'); 
-        }
-        return redirect()->route('order.index');
+            session()->flash('warning', 'No se encuentra el registro solicitado');
+            return redirect()->route('order.index');
+        }  
     }
 
     /**
@@ -77,15 +77,16 @@ class OrderController extends Controller
     public function update(Request $request, string $id)
     {
         $order = Order::find($id);
-        if($order) // la causal existe
+        if($order) 
         {
             $order->update($request->all());
-            session()->flash('message', 'Registro actualizado exitosamente!');
+            session()->flash('message', 'Registro actualizado exitosamente');
         }
         else
         {
-           session()->flash('warning', ' no se encuentra la orden solicitado'); 
-        }
+            session()->flash('warning', 'No se encuentra el registro solicitado');            
+        } 
+
         return redirect()->route('order.index');
     }
 
@@ -95,15 +96,16 @@ class OrderController extends Controller
     public function destroy(string $id)
     {
         $order = Order::find($id);
-        if($order) // la causal existe
+        if($order) 
         {
             $order->delete();
-            session()->flash('message', 'Registro eliminado exitosamente!');
+            session()->flash('message', 'Registro eliminado exitosamente');
         }
         else
         {
-           session()->flash('warning', ' no se encuentra la orden solicitado'); 
-        }
+            session()->flash('warning', 'No se encuentra el registro solicitado');            
+        } 
+
         return redirect()->route('order.index');
     }
 }

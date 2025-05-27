@@ -29,7 +29,7 @@ class TechnicianController extends Controller
      */
     public function store(Request $request)
     {
-        $technician = Technician::created($request->all());
+        $technician = Technician::create($request->all());
         session()->flash('message', 'tecnico creado exitosamente');
         return redirect()->route('technician.index');
     }

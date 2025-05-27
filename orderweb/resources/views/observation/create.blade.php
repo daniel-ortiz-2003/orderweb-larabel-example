@@ -9,7 +9,7 @@
                 <div class="row form-group">
                     <div class="col-lg-12 mb-4">
                         <label for="description">Descripción</label>
-                        <input type="text" class="form-control" id="description" required>
+                        <input type="text" class="form-control" name="description" id="description" required>
                     </div>
                 </div>
                 <div class="row">
@@ -23,4 +23,5 @@
             </form>
         </div>
     </div>
+
 @endsection

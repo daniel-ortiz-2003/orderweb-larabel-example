@@ -13,7 +13,7 @@ class Activity extends Model
     protected $fillable = [
         'description',
         'hours',
-        'tchenician_id',
+        'technician_id',
         'type_activity_id'
     ];
     public function technician()

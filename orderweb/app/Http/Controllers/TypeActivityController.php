@@ -12,8 +12,8 @@ class TypeActivityController extends Controller
      */
     public function index()
     {
-        $type_activitys = TypeActivity::all();
-        return view('type_activity.index', compact('type_activitys'));
+        $types = TypeActivity::all();
+        return view('type_activity.index', compact('types'));
     }
 
     /**
@@ -29,7 +29,7 @@ class TypeActivityController extends Controller
      */
     public function store(Request $request)
     {
-         $type_activity = TypeActivity::created($request->all());
+         $type = TypeActivity::create($request->all());
         session()->flash('message', 'Tipo de actividad creada exitosamente');
         return redirect()->route('type_activity.index');
     }
@@ -47,10 +47,10 @@ class TypeActivityController extends Controller
      */
     public function edit(string $id)
     {
-        $type_activity = TypeActivity::find($id);
-        if($type_activity) // la causal existe
+        $type = TypeActivity::find($id);
+        if($type) // la causal existe
         {
-            return view('type_activity.edit', compact('type_activity'));
+            return view('type_activity.edit', compact('type'));
         }
         else
         {
@@ -64,10 +64,10 @@ class TypeActivityController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $type_activity = TypeActivity::find($id);
-        if($type_activity) // la causal existe
+        $type = TypeActivity::find($id);
+        if($type) // la causal existe
         {
-            $type_activity->update($request->all());
+            $type->update($request->all());
             session()->flash('message', 'Tipo de actividad actualizada correctamente');
             return redirect()->route('type_activity.index');
         }
@@ -83,10 +83,10 @@ class TypeActivityController extends Controller
      */
     public function destroy(string $id)
     {
-        $type_activity = TypeActivity::find($id);
-        if($type_activity) // la causal existe
+        $type = TypeActivity::find($id);
+        if($type) // la causal existe
         {
-            $type_activity->delete();
+            $type->delete();
             session()->flash('message', 'Tipo de actividad eliminado correctamente'); 
         }
         else

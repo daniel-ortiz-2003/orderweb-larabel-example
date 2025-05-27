@@ -16,7 +16,6 @@ class ActivityController extends Controller
     {
         $activities = Activity::all();
         return view('activity.index', compact('activities'));
-
     }
 
     /**
@@ -26,7 +25,7 @@ class ActivityController extends Controller
     {
         $technicians = Technician::all();
         $types = TypeActivity::all();
-        return view('activity.create', compact('tecnicians', 'types'));
+        return view('activity.create', compact('technicians', 'types'));
     }
 
     /**
@@ -35,16 +34,8 @@ class ActivityController extends Controller
     public function store(Request $request)
     {
         $activity = Activity::create($request->all());
-        session()->flash('message', 'registro creado exitosamente');
+        session()->flash('message', 'Registro creado exitosamente');
         return redirect()->route('activity.index');
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
     }
 
     /**
@@ -52,16 +43,18 @@ class ActivityController extends Controller
      */
     public function edit(string $id)
     {
-        $Activity = Activity::find($id);
-        if($Activity) // la causal existe
+        $activity = Activity::find($id);
+        if($activity) 
         {
-            return view('activity.edit', compact('activity', 'technician','type_activity'));
+            $technicians = Technician::all();
+            $types = TypeActivity::all();
+            return view('activity.edit', compact('activity', 'technicians', 'types'));
         }
         else
         {
-           session()->flash('warning', ' no se encuentra la actividad solicitado'); 
-        }
-        return redirect()->route('activity.index');
+            session()->flash('warning', 'No se encuentra el registro solicitado');
+            return redirect()->route('activity.index');
+        }    
     }
 
     /**
@@ -70,18 +63,17 @@ class ActivityController extends Controller
     public function update(Request $request, string $id)
     {
         $activity = Activity::find($id);
-        if($activity) // la causal existe
+        if($activity) 
         {
-            $$activity->update($request->all());
-            session()->flash('message', 'Actividad actualizada correctamente');
-            return redirect()->route('activity.index');
+            $activity->update($request->all());
+            session()->flash('message', 'Registro actualizado exitosamente');
         }
         else
         {
-           session()->flash('warning', ' no se encuentra la actividad solicitado');    
-                 
-        }
-        return redirect()->route('activity.index');  
+            session()->flash('warning', 'No se encuentra el registro solicitado');            
+        } 
+
+        return redirect()->route('activity.index');
     }
 
     /**
@@ -90,17 +82,16 @@ class ActivityController extends Controller
     public function destroy(string $id)
     {
         $activity = Activity::find($id);
-        if($activity) // la causal existe
+        if($activity) 
         {
-            $$activity->delete();
-            session()->flash('message', 'Actividad actualizada correctamente');
-            return redirect()->route('activity.index');
+            $activity->delete();
+            session()->flash('message', 'Registro eliminado exitosamente');
         }
         else
         {
-           session()->flash('warning', ' no se encuentra la actividad solicitado');    
-                 
-        }
-        return redirect()->route('activity.index');  
+            session()->flash('warning', 'No se encuentra el registro solicitado');            
+        } 
+
+        return redirect()->route('activity.index');
     }
 }
