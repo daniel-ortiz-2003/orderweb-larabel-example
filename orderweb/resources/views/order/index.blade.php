@@ -9,8 +9,6 @@
         </div>
     </div>
 
-    @include('templates.messages')
-
     <div class="row">
         <div class="col-lg-12 mb-4">
             <table id="table_data" class="table table-striped table-hover">

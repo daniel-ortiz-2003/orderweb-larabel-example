@@ -1,12 +1,12 @@
 <?php
 
 use App\Http\Controllers\ActivityController;
+use App\Http\Controllers\authController;
 use App\Http\Controllers\CausalController;
 use App\Http\Controllers\ObservationController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\TechnicianController;
 use App\Http\Controllers\TypeActivityController;
-use App\Http\Controllers\TypeActiviynController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,17 +21,28 @@ use Illuminate\Support\Facades\Route;
 */
 
 // Página principal y pruebas
-Route::get('/', function () {
+Route::get('/', [authController::class, 'index']);
+
+Route::middleware('auth')->get('/index', function () {
     return view('index');
 })->name('index');
 
+Route::prefix('auth')->group(function(){
+    Route::get('/index',[authController::class, 'index'])->name('auth.index');
+    Route::post('/login', [authController::class, 'login'])->name('auth.login');
+    Route::get('/register', [authController::class, 'create'])->name('auth.register');
+    Route::post('/register', [authController::class, 'store'])->name('auth.store');
+});
+Route::middleware('auth')->prefix('auth')->group(function(){
+    Route::get('/logout', [authController::class, 'logout'])->name('auth.logout');
+});
                                                                                     Route::get('/test2', function () {
                                                                                         return view('test2');
                                                                                     })->name('test2');
 
 // Rutas para Causales
 
-Route::prefix('causal')->group(function(){
+Route::middleware('auth')->prefix('causal')->group(function(){
     Route::get('/index', [CausalController::class, 'index'])->name('causal.index');
     Route::get('/create', [CausalController::class, 'create'])->name('causal.create');
     Route::get('/edit/{id}', [CausalController::class, 'edit'])->name('causal.edit');
@@ -42,7 +53,7 @@ Route::prefix('causal')->group(function(){
 
 // Rutas para Observaciones
 
-Route::prefix('observation')->group(function(){
+Route::middleware('auth')->prefix('observation')->group(function(){
     Route::get('/index', [ObservationController::class, 'index'])->name('observation.index');
     Route::get('/create', [ObservationController::class, 'create'])->name('observation.create');
     Route::get('/edit/{id}', [ObservationController::class, 'edit'])->name('observation.edit');
@@ -52,7 +63,7 @@ Route::prefix('observation')->group(function(){
 });
 
 // Rutas para Tipos de Actividades
-Route::prefix('typeActivity')->group(function(){
+Route::middleware('auth')->prefix('typeActivity')->group(function(){
    Route::get('/index', [TypeActivityController::class, 'index'])->name('type_activity.index');
    Route::get('/create', [TypeActivityController::class, 'create'])->name('type_activity.create');
    Route::get('/edit/{id}', [TypeActivityController::class, 'edit'])->name('type_activity.edit');
@@ -64,7 +75,7 @@ Route::prefix('typeActivity')->group(function(){
 
 
 // Rutas para Actividades
-Route::prefix('activity')->group(function(){
+Route::middleware('auth')->prefix('activity')->group(function(){
     Route::get('/index', [ActivityController::class, 'index'])->name('activity.index');
     Route::get('/create', [ActivityController::class, 'create'])->name('activity.create');
     Route::get('/edit/{id}', [ActivityController::class, 'edit'])->name('activity.edit');
@@ -74,7 +85,7 @@ Route::prefix('activity')->group(function(){
 });
 
 // Rutas para Ordenes
-Route::prefix('order')->group(function(){
+Route::middleware('auth')->prefix('order')->group(function(){
     Route::get('/index', [OrderController::class, 'index'])->name('order.index');
     Route::get('/create', [OrderController::class, 'create'])->name('order.create');
     Route::get('/edit/{id}', [OrderController::class, 'edit'])->name('order.edit');
@@ -86,7 +97,7 @@ Route::prefix('order')->group(function(){
 });
 
 // Rutas para Técnicos
-Route::prefix('technician')->group(function(){
+Route::middleware('auth')->prefix('technician')->group(function(){
     Route::get('/index', [TechnicianController::class, 'index'])->name('technician.index');
     Route::get('/create', [TechnicianController::class, 'create'])->name('technician.create');
     Route::get('/edit/{id}', [TechnicianController::class, 'edit'])->name('technician.edit');

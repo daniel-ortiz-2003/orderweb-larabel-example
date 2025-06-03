@@ -9,9 +9,31 @@ use App\Models\Order;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Collection; 
+use Illuminate\Support\Facades\Validator;
 
 class OrderController extends Controller
 {
+    private $rules= [
+        'legalization_date' => 'required|date|date_format:Y-m-d',
+        'address' => 'required|string|min:3|max:80',
+        'city' => 'required|string|min:3|max:88',
+        'causal_id' => 'required|numeric|min:1|max:999999999999999999',
+        'observation_id' => 'max:99999999999999999999',
+    ];
+    private $traductionAttributes = [
+      'legalization_date' => 'Fecha de Legalización',
+      'address' => 'Dirección',
+      'city' => 'Ciudad',
+      'causal_id' => 'Causal',
+      'observation_id' => 'Observación',
+    ];
+    private $cities =[
+                ['name' => 'TULUA', 'value' => 'TULUA'],
+                ['name' => 'CALI', 'value' => 'CALI'],
+                ['name' => 'BUGA', 'value' => 'BUGA'],
+                ['name' => 'PALMIRA', 'value' => 'PALMIRA']
+    ];
+
     /**
      * Display a listing of the resource.
      */
@@ -26,9 +48,11 @@ class OrderController extends Controller
      */
     public function create()
     {
+
         $causals = Causal::all();
         $observations = Observation::all();
-        return view('order.create', compact('causals', 'observations')); 
+        $cities = $this->cities;
+        return view('order.create', compact('causals', 'observations', 'cities')); 
     }
 
     /**
@@ -36,6 +60,14 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
+        $validator = Validator::make($request->all(), $this->rules);
+        $validator->setAttributeNames($this->traductionAttributes);
+        if($validator->fails())
+        {
+            $errors = $validator->errors();
+            return redirect()->route('order.create')->withInput()
+            ->withErrors($errors);
+        }
         $order = Order::create($request->all());
         session()->flash('message', 'Registro creado exitosamente');
         return redirect()->route('order.index');
@@ -59,12 +91,7 @@ class OrderController extends Controller
         {
             $causals = Causal::all();
             $observations = Observation::all();
-            $cities =[
-                ['name' => 'TULUA', 'value' => 'TULUA'],
-                ['name' => 'CALI', 'value' => 'CALI'],
-                ['name' => 'BUGA', 'value' => 'BUGA'],
-                ['name' => 'PALMIRA', 'value' => 'PALMIRA']
-            ];
+            $cities = $this->cities;
 
             //consultar actividades disponibles
             $query = DB::select("SELECT * FROM activity WHERE activity.id NOT IN (
@@ -77,7 +104,7 @@ class OrderController extends Controller
 
 
             return view('order.edit', compact('order', 'causals', 'observations', 'cities',
-                'availableActivities', 'addedActivities'));
+                'availableActivities', 'addedActivities', 'cities'));
         }
         else
         {
@@ -91,6 +118,14 @@ class OrderController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        $validator = Validator::make($request->all(), $this->rules);
+        $validator->setAttributeNames($this->traductionAttributes);
+        if($validator->fails())
+        {
+            $errors = $validator->errors();
+            return redirect()->route('order.edit')->withInput()
+            ->withErrors($errors);
+        }
         $order = Order::find($id);
         if($order) 
         {
