@@ -30,6 +30,7 @@
 
             
                 <!-- Elemento de navegación - Menú desplegable de páginas -->
+                @can('admin-supervisor')
                 <li class="nav-item">
                     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse1"
                     aria-expanded="true" aria-controls="collapse1">
@@ -42,8 +43,9 @@
                             <a class="collapse-item" href="{{ route('order.create') }}">Crear</a>                        
                         </div>
                     </div>
-                </li> 
-            
+                </li>
+                @endcan 
+                @can('administrador')
                 <li class="nav-item">
                     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse2"
                     aria-expanded="true" aria-controls="collapse2">
@@ -71,7 +73,7 @@
                         </div>
                     </div>
                 </li>
-            
+                @endcan
 
             <!-- Divisor -->
             <hr class="sidebar-divider"/>
@@ -83,6 +85,7 @@
 
             
                 <!-- Elemento de navegación - Menú desplegable de páginas -->
+                @can('admin-supervisor')
                 <li class="nav-item">
                     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse4"
                     aria-expanded="true" aria-controls="collapse4">
@@ -96,7 +99,8 @@
                         </div>
                     </div>
                 </li>
-           
+                @endcan
+                @can('administrador')
                 <li class="nav-item">
                     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse5"
                     aria-expanded="true" aria-controls="collapse5">
@@ -110,6 +114,7 @@
                         </div>
                     </div>
                 </li>
+                @endcan
            
 
             <!-- Divisor -->
@@ -117,6 +122,7 @@
 
            
                 <!-- Encabezado -->
+                @can('supervisor')
                 <div class="sidebar-heading">
                     Técnicos
                 </div>
@@ -134,6 +140,7 @@
                         </div>
                     </div>
                 </li>
+                @endcan
             
                 <!-- Encabezado -->
                 <div class="sidebar-heading">

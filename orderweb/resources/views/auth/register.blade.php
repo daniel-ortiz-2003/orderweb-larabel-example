@@ -29,7 +29,7 @@
                                     </div>
                                     @include('templates.messages')
 
-                                    <form action="#" method="POST" class="user">
+                                    <form action="{{ route('auth.store') }}" method="POST" class="user">
                                         @csrf
                                         <div class="form-group">
                                             <input type="name" name="name"
