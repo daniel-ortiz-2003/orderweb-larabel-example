@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CausalController;
 use App\Http\Controllers\ObservationController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\TechnicianController;
 use App\Http\Controllers\TypeActivityController;
 use Illuminate\Support\Facades\Route;
@@ -27,6 +28,7 @@ Route::middleware('auth')->get('/index', function () {
     return view('index');
 })->name('index');
 
+// Rutas de autenticación
 Route::prefix('auth')->group(function(){
     Route::get('/index',[AuthController::class, 'index'])->name('auth.index');
     Route::post('/login', [AuthController::class, 'login'])->name('auth.login');
@@ -36,10 +38,7 @@ Route::prefix('auth')->group(function(){
 Route::middleware(['auth', 'can:admin-supervisor'])->prefix('auth')->group(function(){
     Route::get('/logout', [AuthController::class, 'logout'])->name('auth.logout');
 });
-                                                                                    Route::get('/test2', function () {
-                                                                                        return view('test2');
-                                                                                    })->name('test2');
-
+                                                
 // Rutas para Causales
 
 Route::middleware(['auth', 'can:administrador'])->prefix('causal')->group(function(){
@@ -104,4 +103,10 @@ Route::middleware(['auth', 'can:supervisor'])->prefix('technician')->group(funct
     Route::post('/store', [TechnicianController::class, 'store'])->name('technician.store');
     Route::put('/update/{id}', [TechnicianController::class, 'update'])->name('technician.update');
     Route::get('/destroy/{id}', [TechnicianController::class, 'destroy'])->name('technician.destroy');
+});
+
+// Rutas para Reportes
+Route::middleware(['auth', 'can:administrador'])->prefix('reports')->group(function(){
+    Route::get('/index', [ReportController::class, 'index'])->name('reports.index');
+    Route::get('/export_technicians', [ReportController::class, 'export_technicians'])->name('reports.technicians');
 });
