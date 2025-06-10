@@ -8,11 +8,11 @@
 </head>
 <body>
     <section id="header">
-        <table width="100%" style="border-collapse:collapse; 1px solid">
+        <table width="100%" style="border-collapse:collapse;border: 1px solid">
             <tr>
                 <th>
                     <div style="text-align:center">
-                        <img src="{{ asset('img/logo.png') }}" alt="Logo">
+                        <img src="{{ asset('img/logo.jpg') }}" alt="logo">
                     </div>
                 </th>
                 <th>
@@ -40,7 +40,7 @@
 
     @yield('content')
 
-    <footer id="version_text">
+    <footer id="version-text">
         <p>Generado por Orderweb 1.0</p>
     </footer>
 
