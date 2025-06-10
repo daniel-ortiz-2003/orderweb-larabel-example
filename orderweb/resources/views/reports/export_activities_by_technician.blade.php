@@ -5,7 +5,7 @@
         @if (count($activities) != 0)
 
             <h4>Tecnico</h4>
-            <table>
+            <table id="reportTableInfo">
                 <thead>
                     <tr>
                         <th>Documento</th>
@@ -26,12 +26,14 @@
 
             <br><hr>
 
-            <table id="reportTableInfo">
+            <table id="reportTable">
                 <thead>
-                    <th>id</th>
-                    <th>Descripcion</th>
-                    <th>Horas</th>
-                    <th>Tipo</th>
+                    <tr>
+                        <th>id</th>
+                        <th>Descripcion</th>
+                        <th>Horas</th>
+                        <th>Tipo</th>
+                    </tr>
                 </thead>
                 <tbody>
                     @foreach ($activities as $activity)

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Activity;
+use App\Models\Causal;
+use App\Models\Order;
 use App\Models\Technician;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
@@ -36,7 +38,6 @@ class ReportController extends Controller
     public function export_activities_by_technician(Request $request)
     {
         $activities = Activity::where('technician_id',$request['technician_id'])->get();
-         $technicians = Technician::all();
          $data = array(
             'activities' => $activities
         );
@@ -48,7 +49,26 @@ class ReportController extends Controller
                 'defaultFont' => 'sans-serif'
             ]);
         
-        return $pdf->download('ActivitiesByTechnicians' . $request['technician_id'] . '.pdf');
+        return $pdf->download('ActivitiesByTechnician-' . $request['technician_id'] . '.pdf');
+    }
+
+    public function export_order_rank_date(Request $request)
+    {
+        $Orders = Order::whereBetween('legalization_date', [$request->start_date, $request->end_date])->get();
+         $data = array(
+            'orders' => $Orders,
+            'start_date' => $request->start_date,
+            'end_date' => $request->end_date
+        );
+        
+        $pdf = Pdf::loadView('reports.export_order_rank_date', $data)
+            ->setPaper('letter', 'portrait')
+            ->setOptions([
+                'isRemoteEnabled' => true,
+                'defaultFont' => 'sans-serif'
+            ]);
+        
+        return $pdf->download('Orders.pdf');
     }
 }
 
