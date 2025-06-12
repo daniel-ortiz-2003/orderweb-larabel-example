@@ -8,6 +8,7 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\TechnicianController;
 use App\Http\Controllers\TypeActivityController;
+use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -111,4 +112,9 @@ Route::middleware(['auth', 'can:administrador'])->prefix('reports')->group(funct
     Route::get('/export_technicians', [ReportController::class, 'export_technicians'])->name('reports.technicians');
     Route::post('/export_activities_by_technician', [ReportController::class, 'export_activities_by_technician'])->name('reports.activities_by_technician');
     Route::post('/export_order_rank_date', [ReportController::class, 'export_order_rank_date'])->name('reports.order_rank_date');
+});
+
+Route::middleware(['auth', 'can:administrador'])->prefix('users')->group(function(){
+    Route::get('/index', [UsersController::class, 'index'])->name('users.index');
+    Route::post('/send_email', [UsersController::class, 'send_email'])->name('users.send_email');
 });
